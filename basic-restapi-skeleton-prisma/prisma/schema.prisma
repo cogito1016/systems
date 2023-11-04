@@ -9,3 +9,21 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+model Member {
+  idx         Int      @id @default(autoincrement())
+  member_code String   @db.Char(50)
+  team_code   String   @db.Char(50)
+  name        String   @db.VarChar(50)
+  level       Int
+  phone_number String?  @db.VarChar(20)
+  address     String?  @db.VarChar(255)
+  add_time    DateTime @default(now())
+}
+
+model Team {
+  idx         Int      @id @default(autoincrement())
+  team_code   String   @db.Char(50)
+  name        String   @db.VarChar(50)
+  group       String?  @db.VarChar(255)
+  add_time    DateTime @default(now())
+}
