@@ -26,9 +26,13 @@ $ npm i --save @nestjs/config
 
 - Prisma세팅
 - https://docs.nestjs.com/recipes/prisma
+- prisma generate
+  - prisma모델을 변경할때마다 클라이언트를 업데이트하려면 이 명령어가 실행되어야 함
 
 ```bash
 $ npm install prisma --save-dev
 $ npx prisma
 $ npx prisma init
+
+$ npm install @prisma/client #자동으로 prisma generate 호출됨
 ```
