@@ -36,3 +36,16 @@ $ npx prisma init
 
 $ npm install @prisma/client #자동으로 prisma generate 호출됨
 ```
+
+### 3.3. Prisma 스키마로 마이그레이션
+
+```bash
+npx prisma migrate dev --name init
+```
+
+```text
+? We need to reset the MySQL database "mydb" at "127.0.0.1:3305"
+Do you want to continue? All data will be lost. › (y/N)
+```
+
+- 위의질문에 y하면 마이그레이션 시작
