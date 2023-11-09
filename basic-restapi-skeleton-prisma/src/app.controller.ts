@@ -1,5 +1,4 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { AppService } from './app.service';
 import { Team as TeamModel, Member as MemberModel } from '@prisma/client';
 import { MemberService } from 'member.service';
 import { TeamService } from 'team.service';

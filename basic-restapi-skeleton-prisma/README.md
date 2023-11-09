@@ -49,3 +49,11 @@ Do you want to continue? All data will be lost. › (y/N)
 ```
 
 - 위의질문에 y하면 마이그레이션 시작
+
+### 3.4. Prisma 스키마 수정으로 인한 마이그레이션
+
+```bash
+npx prisma migrate dev --name <migration_name>
+```
+
+- schema.prisma의 수정사항이 DB에 반영됨
