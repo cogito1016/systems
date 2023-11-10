@@ -25,7 +25,7 @@ model Account{
   member_code  String?   @db.Char(50)
   user_id      String   @db.VarChar(50)
   password     String   @db.VarChar(50)
-  thoughtCount Int
+  thoughtCount Int    @default(0)
   facebook_id  String?  @db.VarChar(50)
   facebook_access_token String?  @db.VarChar(255)
   google_id    String?  @db.VarChar(50)
