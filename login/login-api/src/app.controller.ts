@@ -1,10 +1,14 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { Member as MemberModel } from '@prisma/client';
 import { MemberService } from './member.service';
+import { SecurityService } from './security.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly memberService: MemberService) {}
+  constructor(
+    private readonly memberService: MemberService,
+    private readonly securityService: SecurityService,
+  ) {}
 
   @Get()
   getHello(): string {
@@ -29,5 +33,12 @@ export class AppController {
     },
   ): Promise<MemberModel | null> {
     return this.memberService.createMember(memberData);
+  }
+
+  @Get('password/:password')
+  async getHashedPassword(
+    @Param('password') password: string,
+  ): Promise<object | null> {
+    return this.securityService.getHashedPassword(password);
   }
 }
