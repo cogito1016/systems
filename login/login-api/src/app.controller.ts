@@ -44,14 +44,14 @@ export class AppController {
     return this.securityService.getHashedPassword(password);
   }
 
-  @Post('sign')
+  @Post('sign-up')
   async sign(
     @Body()
     accountData: {
       password: string;
       user_id: string;
     },
-  ): Promise<object | null> {
+  ): Promise<object | null | string> {
     return this.accountService.createAccount(accountData);
   }
 }

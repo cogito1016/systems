@@ -6,7 +6,14 @@ import { PrismaService } from './prisma.service';
 export class AccountService {
   constructor(private prisma: PrismaService) {}
 
-  async createAccount(account: Prisma.AccountCreateInput): Promise<Account> {
+  async createAccount(
+    account: Prisma.AccountCreateInput,
+  ): Promise<Account | string> {
+    //ID, PW 검증 로직 추가
+    if (!this._validateIdAndPw(account.user_id, account.password)) {
+      return 'ID또는 PW가 유효하지 않습니다.';
+    }
+
     const accountData: Prisma.AccountCreateInput = {
       ...account,
       member_code: this._makeMemberCode(),
@@ -17,8 +24,32 @@ export class AccountService {
     });
   }
 
+  _validateIdAndPw(id: string, password: string): boolean {
+    if (!id || !password) {
+      return false;
+    }
+
+    //ID
+    const account = this.account({ user_id: id });
+    if (account) {
+      return false;
+    }
+
+    //PW
+    //TODO: PW 규칙 정의 시 추가
+
+    return true;
+  }
+
+  async account(
+    accountWhereInput: Prisma.AccountWhereInput,
+  ): Promise<Account | null> {
+    return this.prisma.account.findFirst({
+      where: accountWhereInput,
+    });
+  }
+
   _makeMemberCode(): string {
-    //m으로시작하고, 그다음에는 YYYYMMDDHHMMSS 포멧의 날짜 숫자가 오고, 그 다음에는 char(50)에 부합하는 랜덤한 숫자가 오는 문자열을 리턴한다.
     const memberCode = `m${new Date().getTime()}${Math.floor(
       Math.random() * 100,
     )}`;
