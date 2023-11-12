@@ -10,8 +10,13 @@ export class AccountService {
     account: Prisma.AccountCreateInput,
   ): Promise<Account | string> {
     //ID, PW 검증 로직 추가
-    if (!this._validateIdAndPw(account.user_id, account.password)) {
-      return 'ID또는 PW가 유효하지 않습니다.';
+    const validResult = this._validateIdAndPw(
+      account.user_id,
+      account.password,
+    );
+
+    if (typeof validResult === 'string') {
+      return validResult;
     }
 
     const accountData: Prisma.AccountCreateInput = {
@@ -24,15 +29,16 @@ export class AccountService {
     });
   }
 
-  _validateIdAndPw(id: string, password: string): boolean {
+  _validateIdAndPw(id: string, password: string): string | boolean {
     if (!id || !password) {
-      return false;
+      return 'ID또는 PW가 유효하지 않습니다.';
     }
 
     //ID
     const account = this.account({ user_id: id });
     if (account) {
-      return false;
+      console.log(account);
+      return '이미 존재하는 ID입니다';
     }
 
     //PW
