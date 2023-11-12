@@ -31,12 +31,12 @@ export class AccountService {
     }
 
     //ID
-    const account = this.account({ user_id: id });
-    if (account) {
-      throw new HttpException('이미 존재하는 ID입니다', HttpStatus.CONFLICT);
-    }
+    this.account({ user_id: id }).then((account) => {
+      if (account) {
+        throw new HttpException('이미 존재하는 ID입니다', HttpStatus.CONFLICT);
+      }
+    });
 
-    //PW
     //TODO: PW 규칙 정의 시 추가
 
     return true;
