@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Account, Prisma } from '@prisma/client';
 import { PrismaService } from './prisma.service';
+import { createHmac } from 'crypto';
 
 @Injectable()
 export class AccountService {
@@ -10,7 +11,6 @@ export class AccountService {
     accountWhereInput: Prisma.AccountWhereInput,
   ): Promise<Account | HttpException> {
     const account = await this.account(accountWhereInput);
-    console.log(accountWhereInput);
 
     if (!account) {
       throw new HttpException(
@@ -22,11 +22,20 @@ export class AccountService {
     return account;
   }
 
+  _getHashedPassword(password: string): string {
+    const secret = process.env.SECRET_KEY;
+    const hashed = createHmac('sha256', secret).update(password).digest('hex');
+
+    return hashed;
+  }
+
   async createAccount(
     account: Prisma.AccountCreateInput,
   ): Promise<Account | HttpException> {
     //ID, PW 검증 로직 추가
     this._validateIdAndPw(account.user_id, account.password);
+
+    account.password = this._getHashedPassword(account.password);
 
     const accountData: Prisma.AccountCreateInput = {
       ...account,
