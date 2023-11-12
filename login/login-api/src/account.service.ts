@@ -9,17 +9,14 @@ export class AccountService {
 
   async createAccount(
     account: Prisma.AccountCreateInput,
-  ): Promise<Account | string | HttpException> {
+  ): Promise<Account | HttpException> {
     //ID, PW 검증 로직 추가
     const validResult = this._validateIdAndPw(
       account.user_id,
       account.password,
     );
 
-    if (
-      typeof validResult === 'string' ||
-      validResult instanceof HttpException
-    ) {
+    if (validResult instanceof HttpException) {
       return validResult;
     }
 
@@ -33,21 +30,18 @@ export class AccountService {
     });
   }
 
-  _validateIdAndPw(
-    id: string,
-    password: string,
-  ): string | boolean | HttpException {
+  _validateIdAndPw(id: string, password: string): HttpException | boolean {
     if (!id || !password) {
       return new HttpException(
-        'ID또는 PW가 유효하지 않습니다.',
-        HttpStatus.FORBIDDEN,
+        '유효하지않은 ID 또는 PW입니다',
+        HttpStatus.BAD_REQUEST,
       );
     }
 
     //ID
     const account = this.account({ user_id: id });
     if (account) {
-      return new HttpException('이미 존재하는 ID입니다', HttpStatus.FORBIDDEN);
+      return new HttpException('이미 존재하는 ID입니다', HttpStatus.CONFLICT);
     }
 
     //PW
