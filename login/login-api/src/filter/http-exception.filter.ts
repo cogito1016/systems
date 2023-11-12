@@ -6,6 +6,9 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 
+/**
+ * TODO: 예외발생시 예외가 출력되고 서버가 중단됨... 고치자~
+ */
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
   catch(exception: HttpException, host: ArgumentsHost) {
