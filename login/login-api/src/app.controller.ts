@@ -54,4 +54,15 @@ export class AppController {
   ): Promise<object | null | string> {
     return this.accountService.createAccount(accountData);
   }
+
+  @Post('sign-in')
+  async signIn(
+    @Body()
+    accountData: {
+      password: string;
+      user_id: string;
+    },
+  ): Promise<object | null | string> {
+    return this.accountService.signIn(accountData);
+  }
 }

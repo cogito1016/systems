@@ -6,6 +6,22 @@ import { PrismaService } from './prisma.service';
 export class AccountService {
   constructor(private prisma: PrismaService) {}
 
+  async signIn(
+    accountWhereInput: Prisma.AccountWhereInput,
+  ): Promise<Account | HttpException> {
+    const account = await this.account(accountWhereInput);
+    console.log(accountWhereInput);
+
+    if (!account) {
+      throw new HttpException(
+        '존재하지 않는 계정입니다',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    return account;
+  }
+
   async createAccount(
     account: Prisma.AccountCreateInput,
   ): Promise<Account | HttpException> {
