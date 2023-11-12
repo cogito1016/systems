@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Account, Prisma } from '@prisma/client';
 import { PrismaService } from './prisma.service';
+import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 
 @Injectable()
 export class AccountService {
@@ -8,14 +9,17 @@ export class AccountService {
 
   async createAccount(
     account: Prisma.AccountCreateInput,
-  ): Promise<Account | string> {
+  ): Promise<Account | string | HttpException> {
     //ID, PW 검증 로직 추가
     const validResult = this._validateIdAndPw(
       account.user_id,
       account.password,
     );
 
-    if (typeof validResult === 'string') {
+    if (
+      typeof validResult === 'string' ||
+      validResult instanceof HttpException
+    ) {
       return validResult;
     }
 
@@ -29,16 +33,21 @@ export class AccountService {
     });
   }
 
-  _validateIdAndPw(id: string, password: string): string | boolean {
+  _validateIdAndPw(
+    id: string,
+    password: string,
+  ): string | boolean | HttpException {
     if (!id || !password) {
-      return 'ID또는 PW가 유효하지 않습니다.';
+      return new HttpException(
+        'ID또는 PW가 유효하지 않습니다.',
+        HttpStatus.FORBIDDEN,
+      );
     }
 
     //ID
     const account = this.account({ user_id: id });
     if (account) {
-      console.log(account);
-      return '이미 존재하는 ID입니다';
+      return new HttpException('이미 존재하는 ID입니다', HttpStatus.FORBIDDEN);
     }
 
     //PW
