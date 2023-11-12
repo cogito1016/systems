@@ -9,34 +9,22 @@ export class AccountService {
   async createAccount(
     account: Prisma.AccountCreateInput,
   ): Promise<Account | HttpException> {
-    try {
-      //ID, PW 검증 로직 추가
-      const validResult = this._validateIdAndPw(
-        account.user_id,
-        account.password,
-      );
+    //ID, PW 검증 로직 추가
+    this._validateIdAndPw(account.user_id, account.password);
 
-      if (validResult instanceof HttpException) {
-        return validResult;
-      }
+    const accountData: Prisma.AccountCreateInput = {
+      ...account,
+      member_code: this._makeMemberCode(),
+    };
 
-      const accountData: Prisma.AccountCreateInput = {
-        ...account,
-        member_code: this._makeMemberCode(),
-      };
-
-      return this.prisma.account.create({
-        data: accountData,
-      });
-    } catch (e) {
-      console.log('이거 타니?');
-      return new HttpException(e.message, e.status);
-    }
+    return this.prisma.account.create({
+      data: accountData,
+    });
   }
 
-  _validateIdAndPw(id: string, password: string): HttpException | boolean {
+  _validateIdAndPw(id: string, password: string): boolean {
     if (!id || !password) {
-      return new HttpException(
+      throw new HttpException(
         '유효하지않은 ID 또는 PW입니다',
         HttpStatus.BAD_REQUEST,
       );
@@ -45,7 +33,7 @@ export class AccountService {
     //ID
     const account = this.account({ user_id: id });
     if (account) {
-      return new HttpException('이미 존재하는 ID입니다', HttpStatus.CONFLICT);
+      throw new HttpException('이미 존재하는 ID입니다', HttpStatus.CONFLICT);
     }
 
     //PW
