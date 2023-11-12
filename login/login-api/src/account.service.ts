@@ -9,24 +9,29 @@ export class AccountService {
   async createAccount(
     account: Prisma.AccountCreateInput,
   ): Promise<Account | HttpException> {
-    //ID, PW 검증 로직 추가
-    const validResult = this._validateIdAndPw(
-      account.user_id,
-      account.password,
-    );
+    try {
+      //ID, PW 검증 로직 추가
+      const validResult = this._validateIdAndPw(
+        account.user_id,
+        account.password,
+      );
 
-    if (validResult instanceof HttpException) {
-      return validResult;
+      if (validResult instanceof HttpException) {
+        return validResult;
+      }
+
+      const accountData: Prisma.AccountCreateInput = {
+        ...account,
+        member_code: this._makeMemberCode(),
+      };
+
+      return this.prisma.account.create({
+        data: accountData,
+      });
+    } catch (e) {
+      console.log('이거 타니?');
+      return new HttpException(e.message, e.status);
     }
-
-    const accountData: Prisma.AccountCreateInput = {
-      ...account,
-      member_code: this._makeMemberCode(),
-    };
-
-    return this.prisma.account.create({
-      data: accountData,
-    });
   }
 
   _validateIdAndPw(id: string, password: string): HttpException | boolean {
