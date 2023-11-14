@@ -1,11 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpException,
-  HttpStatus,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { Member as MemberModel } from '@prisma/client';
 import { MemberService } from './member.service';
 import { AccountService } from './account.service';

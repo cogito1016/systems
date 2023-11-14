@@ -15,7 +15,12 @@ export class AccountService {
   async signIn(
     accountWhereInput: Prisma.AccountWhereInput,
   ): Promise<Account | HttpException> {
-    const account = await this.account(accountWhereInput);
+    const accountWhereInputWithHashedPassword: Prisma.AccountWhereInput = {
+      ...accountWhereInput,
+      password: this._getHashedPassword(accountWhereInput.password.toString()),
+    };
+
+    const account = await this.account(accountWhereInputWithHashedPassword);
 
     if (!account) {
       throw new HttpException(
