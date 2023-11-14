@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { Account, Prisma } from '@prisma/client';
 import { PrismaService } from './prisma.service';
 import { createHmac } from 'crypto';
@@ -29,9 +34,7 @@ export class AccountService {
     return hashed;
   }
 
-  async createAccount(
-    account: Prisma.AccountCreateInput,
-  ): Promise<Account | HttpException> {
+  async createAccount(account: Prisma.AccountCreateInput): Promise<Account> {
     //ID, PW 검증 로직 추가
     this._validateIdAndPw(account.user_id, account.password);
 
@@ -56,11 +59,10 @@ export class AccountService {
     }
 
     //ID
-    this.account({ user_id: id }).then((account) => {
-      if (account) {
-        throw new HttpException('이미 존재하는 ID입니다', HttpStatus.CONFLICT);
-      }
-    });
+    const account = this.account({ user_id: id });
+    if (account) {
+      throw new ConflictException('이미 존재하는 ID입니다');
+    }
 
     //TODO: PW 규칙 정의 시 추가
 

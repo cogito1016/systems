@@ -31,7 +31,6 @@ $ npm i --save @nestjs/config
 
 ```bash
 $ npm install prisma --save-dev
-$ npx prisma
 $ npx prisma init
 
 $ npm install @prisma/client #자동으로 prisma generate 호출됨
