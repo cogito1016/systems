@@ -50,7 +50,7 @@ export class AppController {
       user_id: string;
     },
   ): Promise<object | null | string> {
-    return this.accountService.createAccount(accountData);
+    return await this.accountService.createAccount(accountData);
   }
 
   @Post('sign-in')
