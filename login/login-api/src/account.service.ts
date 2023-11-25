@@ -29,7 +29,20 @@ export class AccountService {
       );
     }
 
+    await this._updateThoughtCount(account.idx);
+
     return account;
+  }
+
+  _updateThoughtCount(idx: number): Promise<Account> {
+    return this.prisma.account.update({
+      where: { idx },
+      data: {
+        thoughtCount: {
+          increment: 1,
+        },
+      },
+    });
   }
 
   _getHashedPassword(password: string): string {
