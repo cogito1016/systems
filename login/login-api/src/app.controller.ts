@@ -38,12 +38,29 @@ export class AppController {
   @Post('sign-up')
   async sign(
     @Body()
-    accountData: {
+    signUpData: {
       password: string;
       user_id: string;
+      address: string;
+      phone_number: string;
+      name: string;
     },
   ): Promise<object | null | string> {
-    return await this.accountService.createAccount(accountData);
+    const accountData = {
+      password: signUpData.password,
+      user_id: signUpData.user_id,
+    };
+    const userAccount = await this.accountService.createAccount(accountData);
+
+    const memberData = {
+      member_code: userAccount.member_code,
+      team_code: null,
+      name: signUpData.name,
+      address: signUpData.address,
+      phone_number: signUpData.phone_number,
+      level: 1,
+    };
+    return await this.memberService.createMember(memberData);
   }
 
   @Post('sign-in')

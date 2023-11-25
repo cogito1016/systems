@@ -5,21 +5,40 @@
     let mobilePhone = "";
     let address = "";
   
-    function handleRegistration() {
+    async function handleRegistration() {
       // Implement your registration logic here
       const registrationData = {
         user_id: userId,
         password,
         name,
-        mobile_phone: mobilePhone,
+        phone_number: mobilePhone,
         address,
       };
-  
-      // Perform validation here if needed
-  
-      // Simulate registration success for demonstration purposes
-      alert('Registration successful!');
-      // You can redirect to a different page or perform other actions here
+      
+
+      const loginEndpoint = 'http://localhost:3000/sign-up';
+      const user_id = userId;
+
+      const result = await fetch(loginEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(
+          registrationData
+        ),
+      })
+
+      const data = await result.json();
+      console.log(result)
+      console.log(data)
+
+      if (result.ok) {
+        alert('회원가입 성공');
+      } else {
+        alert(`회원가입 실패 - ${data.msg}`);
+      }
+
     }
   </script>
   
