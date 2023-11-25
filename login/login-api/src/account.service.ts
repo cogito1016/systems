@@ -22,13 +22,6 @@ export class AccountService {
 
     const account = await this.account(accountWhereInputWithHashedPassword);
 
-    if (!account) {
-      throw new HttpException(
-        '존재하지 않는 계정입니다',
-        HttpStatus.BAD_REQUEST,
-      );
-    }
-
     await this._updateThoughtCount(account.idx);
 
     return account;

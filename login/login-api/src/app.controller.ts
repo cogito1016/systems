@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { Member as MemberModel } from '@prisma/client';
 import { MemberService } from './member.service';
 import { AccountService } from './account.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller()
 export class AppController {
@@ -63,6 +64,7 @@ export class AppController {
     return await this.memberService.createMember(memberData);
   }
 
+  @UseGuards(AuthGuard('local'))
   @Post('sign-in')
   async signIn(
     @Body()
