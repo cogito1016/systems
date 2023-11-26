@@ -59,3 +59,10 @@
   - 라우팅이 안잡혔기 때문
 - login-api-ver2 생성이유
   - 너무 날것의 코드라 처음부터 재정비하기 위함
+
+## 참조
+
+- NestJS + Passport + Redis + Session
+  - https://dev.to/nestjs/setting-up-sessions-with-nestjs-passport-and-redis-210
+- NestJS 세션기반 사용자인증
+  - https://www.loginradius.com/blog/engineering/guest-post/ session-authentication-with-nestjs-and-mongodb/
