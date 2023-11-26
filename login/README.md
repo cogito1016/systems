@@ -8,6 +8,7 @@
 
 ### 2.1.Backend
 
+- 기본적인 세팅은 ../basic-restapi-skeleton-prisma > README.md 참조
 - NestJS
 - Prisma
 - Passport
@@ -20,6 +21,7 @@
 - 비밀번호 해싱
   - crypto
 - 환경변수 관리
+  - @nestjs/config
 - ORM
   - Prisma
 - 로그아웃
