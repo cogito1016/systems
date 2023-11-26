@@ -4,6 +4,10 @@ import { Prisma } from '@prisma/client';
 import { Strategy } from 'passport-local';
 import { AccountService } from 'src/account.service';
 
+/**
+ * @description 로컬DB를 사용하는 로그인 전략
+ * @reference https://kiwi-wiki.tistory.com/26#google_vignette
+ */
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly accountService: AccountService) {
