@@ -1,6 +1,28 @@
 <script>
+  import { onMount } from "svelte";
+
 	let userId = "";
 	let password = "";
+	let isLogin = false;
+
+	onMount(async () => {
+		const loginEndpoint = 'http://localhost:3000/account/is-logged-in';
+		const result = await fetch(loginEndpoint, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+
+		isLogin = result.ok
+	});
+
+	async function isLoginUser(){
+
+	}
+
+	//페이지가 로드되면 로그인 여부를 확인하고 로그인이 되어있으면 메인페이지로 이동
+
   
 	
 	async function handleLogin() {
@@ -24,8 +46,10 @@
 
 		if (result.ok) {
 			alert('로그인 성공');
+			isLogin=true
 		} else {
 			alert(`로그인 실패 - ${data.msg}`);
+			isLogin=false
 		}
   }
   
@@ -79,7 +103,14 @@ button:hover {
 	background-color: #005A8C;
 }
 </style>
-  
+
+
+{#if isLogin}
+<h1>Logged in user</h1>
+{:else}
+<h1>Non-logged user</h1>
+{/if}
+
 <div class="container">
 <h2>Login</h2>
 
