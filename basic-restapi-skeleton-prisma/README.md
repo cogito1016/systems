@@ -22,7 +22,7 @@ $ npm i --save @nestjs/config
 
 ```
 
-### 3.2. Prisma
+### 3.2. Prisma 설치 및 기본세팅
 
 - Prisma세팅
 - https://docs.nestjs.com/recipes/prisma
@@ -36,7 +36,15 @@ $ npx prisma init
 $ npm install @prisma/client #자동으로 prisma generate 호출됨
 ```
 
-### 3.3. Prisma 스키마로 마이그레이션
+#### 기존 DB 스키마가 존재한다면
+
+```bash
+npx prisma db pull
+```
+
+- 위 명령어를 사용하여 기존 DB 테이블 스키마를 프리즈마스키마로 변환하여 schema.prisma에 반영함
+
+#### Prisma 스키마로 마이그레이션
 
 ```bash
 npx prisma migrate dev --name init
@@ -49,7 +57,7 @@ Do you want to continue? All data will be lost. › (y/N)
 
 - 위의질문에 y하면 마이그레이션 시작
 
-### 3.4. Prisma 스키마 수정으로 인한 마이그레이션
+#### Prisma 스키마 수정으로 인한 마이그레이션
 
 ```bash
 npx prisma migrate dev --name <migration_name>
