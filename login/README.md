@@ -65,4 +65,6 @@
 - NestJS + Passport + Redis + Session
   - https://dev.to/nestjs/setting-up-sessions-with-nestjs-passport-and-redis-210
 - NestJS 세션기반 사용자인증
-  - https://www.loginradius.com/blog/engineering/guest-post/ session-authentication-with-nestjs-and-mongodb/
+  - https://www.loginradius.com/blog/engineering/guest-post/session-authentication-with-nestjs-and-mongodb/
+- NestJS 세션값을 이용해 쿠키에 connect.sid가 만들어지는 과정
+  - https://wiki.terzeron.com/Programming/JavaScript/express%EA%B0%80_%EC%BF%A0%ED%82%A4%EB%A5%BC_%EB%A7%8C%EB%93%A4%EC%96%B4_%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8%EC%97%90_%EC%A0%84%EB%8B%AC%ED%95%98%EB%8A%94_%EA%B3%BC%EC%A0%95
