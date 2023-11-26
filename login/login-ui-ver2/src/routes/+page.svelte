@@ -4,7 +4,7 @@
   
 	
 	async function handleLogin() {
-		const loginEndpoint = 'http://localhost:3000/sign-in';
+		const loginEndpoint = 'http://localhost:3000/account/sign-in';
 		const user_id = userId;
 
 		const result = await fetch(loginEndpoint, {
