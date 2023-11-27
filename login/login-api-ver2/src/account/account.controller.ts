@@ -11,7 +11,6 @@ import { Account } from '@prisma/client';
 import { LocalAuthGuard } from 'auth/local.auth.guard';
 import { AuthenticatedGuard } from 'auth/authenticated.guard';
 import { AccountRequestInterface } from './interface/account.request.interface';
-import { AuthGuard } from '@nestjs/passport';
 
 @Controller('account')
 export class AccountController {

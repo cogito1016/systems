@@ -6,11 +6,13 @@
 	let isLogin = false;
 
 	onMount(async () => {
-		const loginEndpoint = 'http://localhost:3000/account/is-logged-in';
+		const loginEndpoint = 'http://localhost:3000/account/protected';
 		const result = await fetch(loginEndpoint, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
+				'credentials': 'include',
+				'withCredentials': 'true'
 			},
 		})
 
@@ -33,6 +35,8 @@
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
+				'credentials': 'include',
+				'withCredentials': 'true'
 			},
 			body: JSON.stringify({
 				user_id,
