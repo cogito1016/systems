@@ -4,6 +4,7 @@ import {
   Get,
   Post,
   Request,
+  Session,
   UseGuards,
 } from '@nestjs/common';
 import { AccountService } from './account.service';
@@ -45,5 +46,10 @@ export class AccountController {
   logout(@Request() request: any): any {
     request.session.destroy();
     return { message: '로그아웃 되었습니다' };
+  }
+
+  @Get('session')
+  async getSession(@Session() session: any): Promise<any> {
+    return session;
   }
 }
