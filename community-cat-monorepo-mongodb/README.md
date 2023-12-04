@@ -10,6 +10,7 @@
   - MonoRepo
 - MongoDB
 - Mongoose
+- @nestjs/config
 
 ## 2.1.Mongooes설치
 ```bash
@@ -48,3 +49,29 @@ command listDatabases requires authentication
 ### 3.3 [해결]
 - mongoDB에 접속하기위해서는 인증이 필요하다
 - mongoDB에 접속하기위한 계정을 생성해야한다
+
+### 3.4. [문제]
+```typescript
+    MongooseModule.forRoot(process.env.DATABASE_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    }),
+```
+- 위와같이 설정하면 아래와같은 오류가 발생한다
+```bash
+Argument of type '{ useNewUrlParser: boolean; useUnifiedTopology: boolean; useCreateIndex: boolean; useFindAndModify: boolean; }' is not assignable to parameter of type 'MongooseModuleOptions'.
+```
+
+
+### 3.4. [해결]
+
+- 아래의것들을 사용하지않는다.
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+- 아래의 링크를 참고한다
+- https://www.mongodb.com/community/forums/t/argument-of-type-usenewurlparser-boolean-useunifiedtopology-boolean-is-not-assignable-to-parameter-of-type/169033/3
+- https://velog.io/@untiring_dev/MongoDB-MongoDB-Mongoose%EC%97%90-%EC%97%B0%EA%B2%B0
