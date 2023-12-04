@@ -24,6 +24,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/auth/tsconfig.app.json"
       }
+    },
+    "cat-community": {
+      "type": "application",
+      "root": "apps/cat-community",
+      "entryFile": "main",
+      "sourceRoot": "apps/cat-community/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/cat-community/tsconfig.app.json"
+      }
     }
   }
 }
