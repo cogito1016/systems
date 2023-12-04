@@ -1,8 +1,9 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
+import mongoose from 'mongoose';
 
 @Module({
   imports: [
@@ -12,4 +13,10 @@ import { ConfigModule } from '@nestjs/config';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  private isDev: boolean = process.env.MODE == 'dev' ? true : false;
+
+  configure() {
+    mongoose.set('debug', this.isDev);
+  }
+}
