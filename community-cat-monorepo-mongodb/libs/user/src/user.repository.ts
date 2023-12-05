@@ -22,4 +22,8 @@ export class UserRepository {
       password: hashedPassword,
     });
   }
+
+  async findOneByEmail(email: string) {
+    return await this.userModel.findOne({ email });
+  }
 }

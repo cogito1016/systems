@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { UserRequestDto } from '@app/user/dto/user.request.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { UserResponseDto } from '@app/user/dto/user.response.dto';
+import { LoginRequestDto } from './dto/login.request.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -25,8 +26,8 @@ export class AuthController {
 
   @ApiOperation({ summary: '로그인' })
   @Post('login')
-  async login() {
-    return 'Login';
+  async login(@Body() body: LoginRequestDto) {
+    return await this.authService.signIn(body);
   }
 
   @ApiOperation({ summary: '로그아웃' })
