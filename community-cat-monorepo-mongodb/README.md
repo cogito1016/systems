@@ -18,8 +18,10 @@
   - MonoRepo
 - MongoDB
 - Mongoose
-- @nestjs/config
-- class-validator
+- package
+  - @nestjs/config
+  - class-validator
+  - bcrpyt, @types/bcrtypt
 
 ## 2.1.Mongooes설치
 ```bash
@@ -29,6 +31,11 @@ npm install --save @nestjs/mongoose mongoose
 ## 2.2 Class-Vlidator설치
 ```bash
 npm i --save class-validator class-transformer 
+```
+
+## 2.3. Bcrypt설치
+```bash
+npm i --save bcrypt @types/bcrypt
 ```
 
 ## 3.오류
@@ -89,3 +96,37 @@ Argument of type '{ useNewUrlParser: boolean; useUnifiedTopology: boolean; useCr
 - 아래의 링크를 참고한다
 - https://www.mongodb.com/community/forums/t/argument-of-type-usenewurlparser-boolean-useunifiedtopology-boolean-is-not-assignable-to-parameter-of-type/169033/3
 - https://velog.io/@untiring_dev/MongoDB-MongoDB-Mongoose%EC%97%90-%EC%97%B0%EA%B2%B0
+
+### 3.5. [문제]
+- MongoDB Connection 오류
+```bash
+[Nest] 17078  - 12/05/2023, 5:01:24 PM   ERROR [MongooseModule] Unable to connect to the database. Retrying (1)...
+MongoServerError: Authentication failed. 
+```
+- MongoDB에는 접속했어도 DB접근권한이없으면 접근할수없다
+
+### 3.5. [해결]
+- MongoDB에 접속하기위한 계정을 생성해야한다
+- 아래의 링크를 참고한다
+- https://www.mongodb.com/docs/v3.2/tutorial/enable-authentication/
+
+### 3.6. [문제]
+```bash
+Command failed with error 31 (RoleNotFound): 'Cannot grant nonexistent role createIndex@mymongo' on server localhost:27017. The full response is {"ok": 0.0, "errmsg": "Cannot grant nonexistent role createIndex@mymongo", "code": 31, "codeName": "RoleNotFound"}
+```
+- MongoDB Role 생성 중 발생하는 오류
+- 3.5.에서 생성한 계정에게 권한을 부여할때 발생함
+
+### 3.6. [해결]
+- readWriteAnyDatabase role은 왜인지 4.4에서는 사용할수없다
+- readWrite role을 사용하면된다
+```json
+use mymongo
+db.createUser(
+    {
+        user: "{{user_name}}",
+        pwd: "{{password}}",
+        roles: [ { role: "readWrite", db: "{{db_name}}" }]
+    }
+)
+```
