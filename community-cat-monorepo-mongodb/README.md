@@ -18,10 +18,12 @@
   - MonoRepo
 - MongoDB
 - Mongoose
+- API Docs
 - package
   - @nestjs/config
   - class-validator
   - bcrpyt, @types/bcrtypt
+  - swagger
 
 ## 2.1.Mongooes설치
 ```bash
@@ -36,6 +38,11 @@ npm i --save class-validator class-transformer
 ## 2.3. Bcrypt설치
 ```bash
 npm i --save bcrypt @types/bcrypt
+```
+
+## 2.4. Swagger설치
+```bash
+npm i --save @nestjs/swagger swagger-ui-express
 ```
 
 ## 3.오류
