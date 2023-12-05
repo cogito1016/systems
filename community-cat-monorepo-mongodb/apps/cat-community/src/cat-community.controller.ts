@@ -9,7 +9,8 @@ export class CatCommunityController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  getCats(@CurrentUser() user): string {
-    return '고양이정보를 가져옵니다. 회원만 가져올 수 있습니다.';
+  getuser(@CurrentUser() user): string {
+    //현재접속한 사용자의 정보를 가져옴
+    return user;
   }
 }
