@@ -23,11 +23,11 @@ npm install --save @nestjs/mongoose mongoose
 ```bash
 nest generate app auth
 ```
-### 3.1.[해결] 경로문제였다..
+### 3.1.[해결] npx를 반드시 붙여줘야한다.
 ```bash
-#src폴더로 이동
-nest generate app auth
+npx nest generate app auth
 ```
+
 ### 3.2.[문제] DB접속문제
 ```bash
 WARNING: MongoDB 5.0+ requires a CPU with AVX support, and your current system does not appear to have that!
