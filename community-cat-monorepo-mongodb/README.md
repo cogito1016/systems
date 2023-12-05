@@ -11,10 +11,16 @@
 - MongoDB
 - Mongoose
 - @nestjs/config
+- class-validator
 
 ## 2.1.Mongooes설치
 ```bash
 npm install --save @nestjs/mongoose mongoose
+```
+
+## 2.2 Class-Vlidator설치
+```bash
+npm i --save class-validator class-transformer 
 ```
 
 ## 3.오류
