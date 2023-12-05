@@ -18,12 +18,14 @@
   - MonoRepo
 - MongoDB
 - Mongoose
-- API Docs
+- API Docs (Swagger)
+- Passport (JWT)
 - package
   - @nestjs/config
   - class-validator
   - bcrpyt, @types/bcrtypt
   - swagger
+  - passport
 
 ## 2.1.Mongooes설치
 ```bash
@@ -44,6 +46,13 @@ npm i --save bcrypt @types/bcrypt
 ```bash
 npm i --save @nestjs/swagger swagger-ui-express
 ```
+
+## 2.5. Passport설치
+```bash
+npm i --save @nestjs/passport passport @nestjs/jwt passport-jwt
+npm i --save-dev @types/passport-jwt
+``` 
+![img.png](img.png)
 
 ## 3.오류
 
