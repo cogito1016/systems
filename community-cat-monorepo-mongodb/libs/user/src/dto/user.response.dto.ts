@@ -1,21 +1,10 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { PickType } from '@nestjs/swagger';
+import { User } from '@app/user/user.schema';
 
 /**
  * Read-only data (mongodb virtual property)와 일치시킨다
  */
-export class UserResponseDto {
-  @ApiProperty({
-    example: 'jayden@naver.com',
-    description: '이메일',
-    required: true,
-  })
-  email: string;
-
-  @ApiProperty({
-    example: 'jayden',
-    description: '이름',
-    required: true,
-  })
-  name: string;
-}
+export class UserResponseDto extends PickType(User, [
+  'email',
+  'name',
+] as const) {}

@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory, SchemaOptions } from '@nestjs/mongoose';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 const options: SchemaOptions = {
   timestamps: true,
@@ -8,6 +9,11 @@ const options: SchemaOptions = {
 
 @Schema(options)
 export class User {
+  @ApiProperty({
+    example: 'jayden@naver.com',
+    description: '이메일',
+    required: true,
+  })
   @Prop({
     required: true,
     unique: true,
@@ -16,6 +22,11 @@ export class User {
   @IsNotEmpty()
   email: string;
 
+  @ApiProperty({
+    example: 'jayden',
+    description: '이름',
+    required: true,
+  })
   @Prop({
     required: true,
   })
@@ -23,6 +34,11 @@ export class User {
   @IsNotEmpty()
   name: string;
 
+  @ApiProperty({
+    example: '1234',
+    description: '비밀번호',
+    required: true,
+  })
   @Prop({
     required: true,
   })
