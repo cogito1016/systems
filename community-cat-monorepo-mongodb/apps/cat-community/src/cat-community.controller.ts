@@ -1,12 +1,15 @@
-import {Controller, Get, Post} from '@nestjs/common';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { CatCommunityService } from './cat-community.service';
+import { JwtAuthGuard } from './jwt/jwt.guard';
 
-@Controller()
+@Controller('cat')
 export class CatCommunityController {
   constructor(private readonly catCommunityService: CatCommunityService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get()
-  getHello(): string {
-    return this.catCommunityService.getHello();
+  getCats(@Req() req: Request): string {
+    // console.log(req);
+    return '고양이정보를 가져옵니다. 회원만 가져올 수 있습니다.';
   }
 }

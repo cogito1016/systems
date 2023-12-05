@@ -26,4 +26,8 @@ export class UserRepository {
   async findOneByEmail(email: string) {
     return await this.userModel.findOne({ email });
   }
+
+  async findOneByIdWithoutPassword(id: string) {
+    return await this.userModel.findById(id).select('-password'); //password필드제외하고 조회
+  }
 }

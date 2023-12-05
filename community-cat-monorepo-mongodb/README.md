@@ -146,3 +146,12 @@ db.createUser(
     }
 )
 ```
+
+### 3.7 [문제]
+- nestjs JsonWebTokenError: jwt must be a string 출력
+
+### 3.7 [해결]
+- jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()를
+- jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken로 적었기때문에 발생한 문제..
+  - 정말멍청했지만.. Passport와 Strategy, Guard를 리버스엔지니어링하면서 많은것을 배운듯..
+  - 이 경우에는 token추출 시 String이 아니라 Function으로 반환되어 발생한 문제이다.

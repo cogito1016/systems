@@ -18,8 +18,10 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "start:auth:local": "nest start auth --debug --watch",
-    "start:cat-community:local": "nest start cat-community --debug --watch",
+    "start:auth:local": "nest start auth --watch",
+    "start:cat-community:local": "nest start cat-community --watch",
+    "start:auth:local:debug": "nest start auth --debug --watch",
+    "start:cat-community:local:debug": "nest start cat-community --debug --watch",
     "build:auth": "nest build auth",
     "build:cat-community": "nest build cat-community"
   },
