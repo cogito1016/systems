@@ -33,6 +33,15 @@ export class User {
   @Prop()
   @IsString()
   imgUrl: string;
+
+  readonly readOnlyData: { email: string; name: string };
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+
+UserSchema.virtual('readOnlyData').get(function (this: User) {
+  return {
+    email: this.email,
+    name: this.name,
+  };
+});

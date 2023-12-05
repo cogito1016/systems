@@ -14,6 +14,8 @@ export class AuthService {
       throw new UnauthorizedException('이미 존재하는 이메일입니다.');
     }
 
-    return await this.userService.createUser(email, name, password);
+    const user = await this.userService.createUser(email, name, password);
+
+    return user.readOnlyData;
   }
 }
