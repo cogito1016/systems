@@ -5,6 +5,25 @@ const options: SchemaOptions = {
 };
 
 @Schema(options)
-export class User {}
+export class User {
+  @Prop({
+    required: true,
+    unique: true,
+  })
+  email: string;
+
+  @Prop({
+    required: true,
+  })
+  name: string;
+
+  @Prop({
+    required: true,
+  })
+  password: string;
+
+  @Prop()
+  imgUrl: string;
+}
 
 export const UserSchema = SchemaFactory.createForClass(User);
