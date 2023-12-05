@@ -1,20 +1,20 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserRequestDto } from '@app/user/dto/user.request.dto';
-import { UserService } from '@app/user';
+import { UserRepository } from '@app/user/user.repository';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userRepository: UserRepository) {}
 
   async signUp(body: UserRequestDto) {
     const { email, name, password } = body;
-    const isExist = await this.userService.isExistByEmail(email);
+    const isExist = await this.userRepository.isExistByEmail(email);
 
     if (isExist) {
       throw new UnauthorizedException('이미 존재하는 이메일입니다.');
     }
 
-    const user = await this.userService.createUser(email, name, password);
+    const user = await this.userRepository.createUser(email, name, password);
 
     return user.readOnlyData;
   }
