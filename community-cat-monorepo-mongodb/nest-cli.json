@@ -8,7 +8,6 @@
     "webpack": true,
     "tsConfigPath": "apps/auth/tsconfig.app.json"
   },
-
   "projects": {
     "auth": {
       "type": "application",
@@ -26,6 +25,15 @@
       "sourceRoot": "apps/cat-community/src",
       "compilerOptions": {
         "tsConfigPath": "apps/cat-community/tsconfig.app.json"
+      }
+    },
+    "user": {
+      "type": "library",
+      "root": "libs/user",
+      "entryFile": "index",
+      "sourceRoot": "libs/user/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/user/tsconfig.lib.json"
       }
     }
   }

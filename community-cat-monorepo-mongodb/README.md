@@ -1,4 +1,4 @@
-# Cat-community
+# Gomunity(Cat-community) 
 
 - 고양이 커뮤니티를 만듭니다
 
