@@ -30,7 +30,10 @@ export class AuthController {
     return await this.authService.signIn(body);
   }
 
-  @ApiOperation({ summary: '로그아웃' })
+  @ApiOperation({
+    summary: '로그아웃',
+    description: '프론트에서 JWT를 만료시키세요',
+  })
   @Post('logout')
   async logout() {
     return 'Logout';
