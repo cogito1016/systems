@@ -19,6 +19,7 @@
 - MongoDB
 - Mongoose
 - API Docs (Swagger)
+  - express-basic-auth
 - Passport (JWT)
 - package
   - @nestjs/config
@@ -53,6 +54,12 @@ npm i --save @nestjs/passport passport @nestjs/jwt passport-jwt
 npm i --save-dev @types/passport-jwt
 ``` 
 ![img.png](img.png)
+
+## 2.6. express-basic-auth설치
+```bash
+npm i express-basic-auth
+```
+
 
 ## 3.오류
 
@@ -155,3 +162,18 @@ db.createUser(
 - jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken로 적었기때문에 발생한 문제..
   - 정말멍청했지만.. Passport와 Strategy, Guard를 리버스엔지니어링하면서 많은것을 배운듯..
   - 이 경우에는 token추출 시 String이 아니라 Function으로 반환되어 발생한 문제이다.
+
+### 3.8 [문제]
+- express-basic-auth 오류
+```bash
+TypeError: (0 , express_basic_auth_1.default) is not a function
+```
+
+### 3.8 [해결]
+```json
+// tsconfig.json
+{
+ "esModuleInterop": true
+}
+```
+- 그 외에, app설정 코드 내에서 Swwagger설정보다 상단에 위치해야한다.
