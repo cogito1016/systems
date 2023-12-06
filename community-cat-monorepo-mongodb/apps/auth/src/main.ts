@@ -8,6 +8,10 @@ import expressBasicAuth from 'express-basic-auth';
 async function bootstrap() {
   const app = await NestFactory.create(AuthModule);
   app.useGlobalPipes(new ValidationPipe());
+  app.enableCors({
+    origin: true,
+    credentials: true,
+  });
 
   //express-basic-auth
   app.use(
