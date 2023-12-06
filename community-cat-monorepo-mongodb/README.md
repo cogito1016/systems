@@ -8,6 +8,7 @@
   - 회원가입
 - 게시글
   - 게시글 작성
+    - 이미지 업로드
   - 게시글 수정
   - 게시글 삭제
   - 게시글 조회
@@ -27,6 +28,7 @@
   - bcrpyt, @types/bcrtypt
   - swagger
   - passport
+  - milter
 
 ## 2.1.Mongooes설치
 ```bash
@@ -60,6 +62,11 @@ npm i --save-dev @types/passport-jwt
 npm i express-basic-auth
 ```
 
+## 2.7. multer설치
+```bash
+npm i --save @types/multer
+
+```
 
 ## 3.오류
 

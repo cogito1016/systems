@@ -126,7 +126,7 @@ const AppLayout = ({ children, isSignup = false }: Props): JSX.Element => {
       console.log(form.getAll("image"));
       try {
         setIsUpdated(false);
-        const newCatResponse = await axios.post(`${api.cats}/upload`, form, {
+        const newCatResponse = await axios.post(`${api.cat}/upload`, form, {
           withCredentials: true,
           headers: {
             Authorization: "Bearer " + me.token,
