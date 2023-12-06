@@ -1,5 +1,7 @@
-const apiHost = process.env.NEXT_PUBLIC_API_HOST || "http://localhost:8000";
+const apiCatHost = "http://localhost:3002";
+const apiAuthHost = "http://localhost:3001";
 
 export default {
-  cats: `${apiHost}/cats`,
+  cats: `${apiCatHost}/cat`,
+  auth: `${apiAuthHost}/auth`,
 };
