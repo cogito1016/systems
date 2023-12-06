@@ -32,19 +32,19 @@ const LoginForm = () => {
     //* 로그인
     try {
       const response = await axios.post(
-        `${api.cats}/login`,
+        `${api.auth}/login`,
         { email, password },
         { withCredentials: true }
       );
       console.log(response.data);
-      const getReponse = await axios.get(`${api.cats}`, {
-        withCredentials: true,
-        headers: {
-          Authorization: "Bearer " + response.data.data.token,
-        },
-      });
+      // const getReponse = await axios.get(`${api.cats}`, {
+      //   withCredentials: true,
+      //   headers: {
+      //     Authorization: "Bearer " + response.data.data.token,
+      //   },
+      // });
 
-      login({ ...getReponse.data.data, token: response.data.data.token });
+      login({ ...response.data.user, token: response.data.token });
     } catch (error) {
       if (error.response) {
         console.log(error.response);
