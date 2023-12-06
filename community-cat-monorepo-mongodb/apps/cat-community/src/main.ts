@@ -4,13 +4,22 @@ import { ValidationPipe } from '@nestjs/common';
 import expressBasicAuth from 'express-basic-auth';
 import process from 'process';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import * as path from 'path';
 
 async function bootstrap() {
-  const app = await NestFactory.create(CatCommunityModule);
+  const app = await NestFactory.create<NestExpressApplication>(
+    CatCommunityModule,
+  );
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors({
     origin: true,
     credentials: true,
+  });
+
+  //http://localhost:3002/media/cat/aaa.jpg
+  app.useStaticAssets(path.join(__dirname, '..', 'upload'), {
+    prefix: '/media',
   });
 
   //express-basic-auth

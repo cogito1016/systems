@@ -11,9 +11,9 @@ import { JwtAuthGuard } from './jwt/jwt.guard';
 import { CurrentUser } from '@app/user/decorator/user.decorator';
 import { User } from '@app/user/user.schema';
 import { UserResponseDto } from '@app/user/dto/user.response.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation } from '@nestjs/swagger';
 import { multerOptions } from '../../../libs/utils/multer.options';
+import { FilesInterceptor } from '@nestjs/platform-express';
 
 @Controller('cat')
 export class CatCommunityController {
@@ -27,10 +27,11 @@ export class CatCommunityController {
   }
 
   @ApiOperation({ summary: '고양이 이미지 업로드' })
-  @UseInterceptors(FileInterceptor('image', multerOptions('cat')))
+  @UseInterceptors(FilesInterceptor('image', 10, multerOptions('cat')))
   @Post('upload')
   uploadFile(@UploadedFiles() files: Array<Express.Multer.File>) {
-    console.log(files);
     console.log('uploading');
+    console.log(files);
+    return { image: `http://localhost:3002/media/cat/${files[0].filename}` }; //TODO: 단일로만 처리하고있음
   }
 }
