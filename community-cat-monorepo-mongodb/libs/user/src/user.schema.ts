@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory, SchemaOptions } from '@nestjs/mongoose';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import * as path from 'path';
 
 const options: SchemaOptions = {
   timestamps: true,
@@ -46,7 +47,9 @@ export class User {
   @IsNotEmpty()
   password: string;
 
-  @Prop()
+  @Prop({
+    default: 'https://cdn.imweb.me/thumbnail/20231210/3e77af6c05b33.png',
+  })
   @IsString()
   imgUrl: string;
 
@@ -59,5 +62,6 @@ UserSchema.virtual('readOnlyData').get(function (this: User) {
   return {
     email: this.email,
     name: this.name,
+    imgUrl: this.imgUrl,
   };
 });
