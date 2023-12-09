@@ -39,4 +39,12 @@ export class CatCommunityController {
     console.log(user);
     return { image: `http://localhost:3002/media/cat/${files[0].filename}` }; //TODO: 단일로만 처리하고있음
   }
+
+  @ApiOperation({ summary: '고뮤니티 유저 조회' })
+  @UseGuards(JwtAuthGuard)
+  @Get('user')
+  async getUser(@CurrentUser() user: User) {
+    console.log(user);
+    return await this.catCommunityService.getUsers();
+  }
 }

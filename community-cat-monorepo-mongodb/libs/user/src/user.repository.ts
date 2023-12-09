@@ -10,6 +10,10 @@ export class UserRepository {
     @InjectModel(User.name) private readonly userModel: Model<User>,
   ) {}
 
+  async findAll() {
+    return await this.userModel.find();
+  }
+
   async isExistByEmail(email: string) {
     return this.userModel.exists({ email });
   }

@@ -6,6 +6,7 @@ import CatCard from "components/feature/index/CatCard";
 import { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import api from "utils/api";
+import {useAuth} from "../utils/store";
 
 const { Meta } = Card;
 
@@ -13,13 +14,18 @@ const XCatList = styled.div``;
 
 function Home() {
   const [cats, setCats] = useState([]);
+  const { me, login, logout } = useAuth();
 
   const getCats = async () => {
-    const response = await axios.get(`${api.gomuApi}/all`, {
+    const response = await axios.get(`${api.gomuApi}/user`, {
       withCredentials: true,
+      headers: {
+        Authorization: "Bearer " + me.token,
+      },
     });
-    console.log(response.data.data);
-    setCats(response.data.data);
+
+    console.log(response.data);
+    setCats(response.data);
   };
 
   useEffect(() => {
