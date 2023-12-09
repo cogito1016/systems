@@ -27,11 +27,16 @@ export class CatCommunityController {
   }
 
   @ApiOperation({ summary: '고양이 이미지 업로드' })
+  @UseGuards(JwtAuthGuard)
   @UseInterceptors(FilesInterceptor('image', 10, multerOptions('cat')))
   @Post('upload')
-  uploadFile(@UploadedFiles() files: Array<Express.Multer.File>) {
+  uploadFile(
+    @UploadedFiles() files: Array<Express.Multer.File>,
+    @CurrentUser() user: User,
+  ) {
     console.log('uploading');
     console.log(files);
+    console.log(user);
     return { image: `http://localhost:3002/media/cat/${files[0].filename}` }; //TODO: 단일로만 처리하고있음
   }
 }
