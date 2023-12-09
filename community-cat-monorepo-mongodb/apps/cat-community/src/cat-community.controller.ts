@@ -15,7 +15,7 @@ import { ApiOperation } from '@nestjs/swagger';
 import { multerOptions } from '../../../libs/utils/multer.options';
 import { FilesInterceptor } from '@nestjs/platform-express';
 
-@Controller('cat')
+@Controller('gomu-api')
 export class CatCommunityController {
   constructor(private readonly catCommunityService: CatCommunityService) {}
 
@@ -29,7 +29,7 @@ export class CatCommunityController {
   @ApiOperation({ summary: '고양이 이미지 업로드' })
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FilesInterceptor('image', 10, multerOptions('cat')))
-  @Post('upload')
+  @Post('cat/upload')
   uploadFile(
     @UploadedFiles() files: Array<Express.Multer.File>,
     @CurrentUser() user: User,
