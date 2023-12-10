@@ -48,6 +48,7 @@ export const AuthProvider = ({ children }: Props) => {
 
   const logout = () => {
     setMe(null);
+    localStorage.removeItem("me");
   };
 
   const value = {

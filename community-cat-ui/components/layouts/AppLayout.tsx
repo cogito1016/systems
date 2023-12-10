@@ -132,7 +132,6 @@ const AppLayout = ({ children, isSignup = false }: Props): JSX.Element => {
             Authorization: "Bearer " + me.token,
           },
         });
-        console.log(newCatResponse);
         login({ ...newCatResponse.data.data, token: me.token });
         setTrigger((preState) => !preState);
       } catch (error) {

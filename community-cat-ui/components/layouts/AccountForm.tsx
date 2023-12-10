@@ -36,7 +36,6 @@ const LoginForm = () => {
         { email, password },
         { withCredentials: true }
       );
-      console.log(response.data);
       // const getReponse = await axios.get(`${api.cats}`, {
       //   withCredentials: true,
       //   headers: {
