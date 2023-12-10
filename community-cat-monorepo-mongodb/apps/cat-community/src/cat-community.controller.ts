@@ -28,23 +28,25 @@ export class CatCommunityController {
 
   @ApiOperation({ summary: '고양이 이미지 업로드' })
   @UseGuards(JwtAuthGuard)
-  @UseInterceptors(FilesInterceptor('image', 10, multerOptions('cat')))
-  @Post('cat/upload')
-  uploadFile(
+  @UseInterceptors(FilesInterceptor('image', 10, multerOptions('user')))
+  @Post('user/profile-image')
+  async uploadFile(
     @UploadedFiles() files: Array<Express.Multer.File>,
     @CurrentUser() user: User,
   ) {
     console.log('uploading');
     console.log(files);
     console.log(user);
-    return { image: `http://localhost:3002/media/cat/${files[0].filename}` }; //TODO: 단일로만 처리하고있음
+    const fileName = files[0].filename;
+    await this.catCommunityService.updateProfileImageById(user, fileName);
+    console.log('업로드시작');
+    return { image: `http://localhost:3002/media/user/${fileName}` }; //TODO: 단일로만 처리하고있음
   }
 
   @ApiOperation({ summary: '고뮤니티 유저 조회' })
   @UseGuards(JwtAuthGuard)
   @Get('user')
   async getUser(@CurrentUser() user: User) {
-    console.log(user);
     return await this.catCommunityService.getUsers();
   }
 }

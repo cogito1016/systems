@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { UserRepository } from '@app/user/user.repository';
+import { User } from '@app/user/user.schema';
 
 @Injectable()
 export class CatCommunityService {
@@ -11,7 +12,13 @@ export class CatCommunityService {
 
   async getUsers() {
     const users = await this.userRepository.findAll();
-    console.log(users);
     return users.map((user) => user.readOnlyData);
+  }
+
+  async updateProfileImageById(user: User, fileName: string) {
+    const findedUser = await this.userRepository.findOneById(user._id);
+    findedUser.imgUrl = 'user/' + fileName;
+    const newUser = await findedUser.save();
+    return newUser.readOnlyData;
   }
 }

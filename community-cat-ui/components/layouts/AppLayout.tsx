@@ -126,7 +126,7 @@ const AppLayout = ({ children, isSignup = false }: Props): JSX.Element => {
       console.log(form.getAll("image"));
       try {
         setIsUpdated(false);
-        const newCatResponse = await axios.post(`${api.gomuApi}/cat/upload`, form, {
+        const newCatResponse = await axios.post(`${api.gomuApi}/user/profile-image`, form, {
           withCredentials: true,
           headers: {
             Authorization: "Bearer " + me.token,
@@ -162,7 +162,7 @@ const AppLayout = ({ children, isSignup = false }: Props): JSX.Element => {
             onBreakpoint={handleBroken}
             onCollapse={handleCollapse}
           >
-            <ZCard hoverable cover={<AntdImage alt="cat" src={me.imgUrl} />}>
+            <ZCard hoverable cover={<AntdImage alt="cat" src={`${api.imagePath}/${me.imgUrl}`} />}>
               <Meta title={me.email} description={me.name} />
             </ZCard>
             <XImageBox>

@@ -11,6 +11,15 @@ const options: SchemaOptions = {
 @Schema(options)
 export class User {
   @ApiProperty({
+    example: '60b0b3f6e0c0b61e2c6b2f7d',
+    description: '유저 아이디',
+    required: true,
+  })
+  @IsString()
+  @IsNotEmpty()
+  _id: string;
+
+  @ApiProperty({
     example: 'jayden@naver.com',
     description: '이메일',
     required: true,
@@ -48,7 +57,7 @@ export class User {
   password: string;
 
   @Prop({
-    default: 'https://cdn.imweb.me/thumbnail/20231210/3e77af6c05b33.png',
+    default: 'user/default.png',
   })
   @IsString()
   imgUrl: string;
@@ -60,6 +69,7 @@ export const UserSchema = SchemaFactory.createForClass(User);
 
 UserSchema.virtual('readOnlyData').get(function (this: User) {
   return {
+    id: this._id,
     email: this.email,
     name: this.name,
     imgUrl: this.imgUrl,

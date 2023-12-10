@@ -26,7 +26,7 @@ const Signup = () => {
     const data = { email, name, password };
     console.log(data);
     try {
-      const response = await axios.post(api.cats, data, {
+      const response = await axios.post(api.auth, data, {
         withCredentials: true,
       });
       console.log(response.data);
