@@ -24,13 +24,14 @@ function Home() {
       },
     });
 
-    console.log(response.data);
     setCats(response.data);
   };
 
   useEffect(() => {
-    getCats();
-  }, []);
+      if (me) {
+        getCats();
+      }
+  }, [me]);
 
   return (
     <AppLayout>
