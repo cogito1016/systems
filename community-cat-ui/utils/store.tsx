@@ -43,6 +43,7 @@ export const AuthProvider = ({ children }: Props) => {
 
   const login = (me: MeType) => {
     setMe(me);
+    localStorage.setItem("me", JSON.stringify(me));
   };
 
   const logout = () => {

@@ -28,6 +28,13 @@ function Home() {
   };
 
   useEffect(() => {
+    const localStorageMe = localStorage.getItem("me");
+    if (localStorageMe) {
+      login(JSON.parse(localStorageMe));
+    }
+  }, []);
+
+  useEffect(() => {
       if (me) {
         getCats();
       }
