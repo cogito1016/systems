@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   Post,
@@ -12,12 +13,15 @@ import { CurrentUser } from '@app/user/decorator/user.decorator';
 import { User } from '@app/user/user.schema';
 import { UserResponseDto } from '@app/user/dto/user.response.dto';
 import { ApiOperation, ApiParam } from '@nestjs/swagger';
-import { multerOptions } from '../../../libs/utils/multer.options';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { AwsService } from '../../../libs/utils/aws.service';
 
 @Controller('gomu-api')
 export class CatCommunityController {
-  constructor(private readonly catCommunityService: CatCommunityService) {}
+  constructor(
+    private readonly catCommunityService: CatCommunityService,
+    private readonly awsService: AwsService,
+  ) {}
 
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: '내 정보 조회' })
@@ -35,19 +39,21 @@ export class CatCommunityController {
     description: '고양이 이미지',
   })
   @UseGuards(JwtAuthGuard)
-  @UseInterceptors(FilesInterceptor('image', 10, multerOptions('user')))
+  @UseInterceptors(FilesInterceptor('image'))
   @Post('user/profile-image')
   async uploadFile(
     @UploadedFiles() files: Array<Express.Multer.File>,
     @CurrentUser() user: User,
   ) {
-    console.log('uploading');
-    console.log(files);
-    console.log(user);
-    const fileName = files[0].filename;
-    await this.catCommunityService.updateProfileImageById(user, fileName);
-    console.log('업로드시작');
-    return { image: `http://localhost:3002/media/user/${fileName}` }; //TODO: 단일로만 처리하고있음
+    return this.awsService.uploadFileToS3('cats', files[0]);
+    // return { image: `http://localhost:3002/media/user/${fileName}` };
+  }
+
+  @Get('user/profile-image')
+  async getProfileImage(@Body('key') key: string) {
+    console.log('getProfileImage');
+    console.log(key);
+    return this.awsService.getAwsS3FileUrl(key);
   }
 
   @ApiOperation({ summary: '고뮤니티 유저 조회' })

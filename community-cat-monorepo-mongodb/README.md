@@ -29,6 +29,10 @@
   - swagger
   - passport
   - milter
+  - nest multer extended
+    - nest version 7에서만 적용되므로 pass
+  - aws-sdk
+    - S3이미지 업로드 모듈 사용
 
 ## 2.1.Mongooes설치
 ```bash
@@ -65,7 +69,16 @@ npm i express-basic-auth
 ## 2.7. multer설치
 ```bash
 npm i --save @types/multer
+```
 
+## 2.8. nest multer extended설치
+```bash
+npm i --save nestjs-multer-extended
+```
+
+## 2.9. aws-sdk설치
+```bash
+npm i --save aws-sdk
 ```
 
 ## 3.오류

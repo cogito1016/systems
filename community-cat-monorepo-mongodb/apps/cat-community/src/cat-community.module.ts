@@ -6,7 +6,7 @@ import { UserModule } from '@app/user';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
-import { MulterModule } from '@nestjs/platform-express';
+import { AwsService } from '../../../libs/utils/aws.service';
 
 @Module({
   imports: [
@@ -14,11 +14,8 @@ import { MulterModule } from '@nestjs/platform-express';
     MongooseModule.forRoot(process.env.DATABASE_URL),
     PassportModule.register({ defaultStrategy: 'jwt', session: false }),
     UserModule,
-    MulterModule.register({
-      dest: './upload',
-    }),
   ],
   controllers: [CatCommunityController],
-  providers: [CatCommunityService, JwtStrategy],
+  providers: [CatCommunityService, JwtStrategy, AwsService],
 })
 export class CatCommunityModule {}
