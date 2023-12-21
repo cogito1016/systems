@@ -38,6 +38,8 @@ docker exec -it my-mongodb-container /bin/bash
 ```
 
 ## 5. 오류
+
 ### 5.1. mongo --version이 안됨
+
 - mongo 커맨드는 6.0버전에서 제거됨
-https://stackoverflow.com/questions/73582703/mongo-command-not-found-on-mongodb-6-0-docker-container
+  https://stackoverflow.com/questions/73582703/mongo-command-not-found-on-mongodb-6-0-docker-container
